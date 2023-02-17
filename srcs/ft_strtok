@@ -1,0 +1,37 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strtok                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: chchin <chchin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/17 19:25:50 by chchin            #+#    #+#             */
+/*   Updated: 2023/02/17 19:26:23 by chchin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+char	*ft_strtok(char *str, const char *delim)
+{
+	static char	*saveptr;
+	char		*start;
+	char		*end;
+
+	if (str != NULL)
+		start = str;
+	else
+		start = saveptr;
+	if (start == NULL)
+		return (NULL);
+	start += ft_strspn(start, delim);
+	if (*start == '\0')
+		return (NULL);
+	end = start + ft_strcspn(start, delim);
+	if (*end == '\0')
+		saveptr = NULL;
+	else
+	{
+		*end = '\0';
+		saveptr = end + 1;
+	}
+	return (start);
+}
